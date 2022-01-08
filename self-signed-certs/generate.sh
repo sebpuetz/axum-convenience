@@ -1,0 +1,1 @@
+CAROOT=$(pwd) mkcert localhost

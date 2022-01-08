@@ -20,15 +20,19 @@
 //! async fn run() -> Result<(), ServerError> {
 //!     let router = Router::new();
 //!     // wait for SIGTERM (unix-only) and/or ctrl_c
-//!     let shutdown_signal = ShutdownSignal::OsSignal;
+//!     let shutdown_signal = ShutdownSignal::os_signal();
 //!     let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
 //!     let app = App::builder(addr, router)
 //!         .with_graceful_shutdown(shutdown_signal)
-//!         .spawn();
+//!         .spawn()
+//!         .await
+//!         .unwrap();
 //!     println!("listening at {}", app.local_addr());
 //!     app.await
 //! }
 mod app;
 pub use app::{App, AppBuilder, ServerError};
 mod shutdown;
+#[cfg(feature = "tls")]
+pub use axum_server::tls_rustls::RustlsConfig;
 pub use shutdown::ShutdownSignal;

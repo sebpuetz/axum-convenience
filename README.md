@@ -10,6 +10,9 @@ listener that either waits for signals or for the completion of a provided futur
 Another one is encapsulation of a running server in the `App` struct which offers an API to
 retrieve the local address of the bound socket.
 
+Internally, the crate uses [axum_server](https://github.com/programatik29/axum-server/) to serve
+application.
+
 I'd like to offer some easy to enable middleware layers that e.g. aggregate metrics like latencies
 per endpoint.
 

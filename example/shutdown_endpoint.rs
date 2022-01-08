@@ -27,13 +27,14 @@ async fn main() -> anyhow::Result<()> {
         );
 
     let mut app = App::builder(([127, 0, 0, 1], 3000).into(), router)
-        .with_graceful_shutdown(ShutdownSignal::Custom(
+        .with_graceful_shutdown(ShutdownSignal::custom(
             async move {
                 let _ = shutdown_rx.recv().await;
             }
             .boxed(),
         ))
-        .spawn();
+        .spawn()
+        .await?;
     let addr = app.local_addr();
 
     tracing::info!(
@@ -46,7 +47,7 @@ async fn main() -> anyhow::Result<()> {
             app_res?;
         },
         _ = kill_rx.recv() => {
-            app.kill().await?;
+            app.shutdown().await?;
         }
     };
     Ok(())
