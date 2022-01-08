@@ -24,7 +24,8 @@
 //!     let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
 //!     let app = App::builder(addr, router)
 //!         .with_graceful_shutdown(shutdown_signal)
-//!         .spawn();
+//!         .spawn()
+//!         .await;
 //!     println!("listening at {}", app.local_addr());
 //!     app.await
 //! }

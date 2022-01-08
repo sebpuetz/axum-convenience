@@ -33,7 +33,7 @@ async fn main() -> anyhow::Result<()> {
             }
             .boxed(),
         ))
-        .spawn();
+        .spawn().await;
     let addr = app.local_addr();
 
     tracing::info!(

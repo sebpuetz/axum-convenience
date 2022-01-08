@@ -18,7 +18,7 @@ async fn main() -> anyhow::Result<()> {
 
     let app = App::builder(([127, 0, 0, 1], 3000).into(), router)
         .with_graceful_shutdown(ShutdownSignal::OsSignal)
-        .spawn();
+        .spawn().await;
 
     tracing::info!(
         "App listening at {}, waiting for shutdown signal",
